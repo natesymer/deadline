@@ -19,7 +19,7 @@ jobs:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v3
 
-      - name: Deploy WordPress Theme
+      - name: 'Deploy WordPress Theme'
         run: |
             zip bundle.zip -r ./${{ env.BUNDLE_DIRECTORY }}
             curl --user "${{ WP_USERNAME }}:${{ WP_APP_PASSWORD }}" ${{ env.WP_HOME }}/__cicd__/deploy_theme -F "themezip=@bundle.zip" --max-time 900
