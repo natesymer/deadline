@@ -2,7 +2,9 @@ name: Deploy to WordPress
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+	- 'main'
+	- 'master'
 
 env:
   WP_USERNAME: ${{ secrets.WP_USERNAME }} # Your WordPress username. Needs admin privileges.
