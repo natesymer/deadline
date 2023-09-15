@@ -26,5 +26,6 @@ jobs:
             echo "WP_USERNAME = ${{ env.WP_USERNAME }}"
             echo "WP_HOME = ${{ env.WP_HOME }}"
             echo "WP_APP_PASSWORD = ${{ env.WP_APP_PASSWORD }}"
-            zip bundle.zip -r ./${{ env.BUNDLE_DIRECTORY }}
+            cd ${{ env.BUNDLE_DIRECTORY }}
+            zip bundle.zip -r .
             curl --user "${{ env.WP_USERNAME }}:${{ env.WP_APP_PASSWORD }}" ${{ env.WP_HOME }}/__cicd__/deploy_theme -F "themezip=@bundle.zip" --max-time 900
