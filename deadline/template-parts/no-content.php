@@ -1,14 +1,4 @@
 <?php
-/**
- * Template part for displaying a message that posts cannot be found
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package brooklawn
- */
-
-?>
-<?php
 	if (is_home() && intval(get_option('page_on_front')) === 0 && current_user_can('publish_posts')) {
 		?><p><?php
 		printf(

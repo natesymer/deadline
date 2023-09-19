@@ -35,10 +35,10 @@
 				?><div class="article-wrapper-inner"><?php
 				while (have_posts()) {
 					the_post();
+
 					?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
 	
-					if (is_front_page()) {
-						get_template_part('template-parts/front-page');
+					if (is_front_page() && get_template_part('template-parts/front-page') !== false) {
 					} else if (is_singular()) {
 						get_template_part('template-parts/single-content', get_post_type());
 					} else {
@@ -65,12 +65,8 @@
 			}
 			?>
 			</section>
-			<?php if (is_active_sidebar('sidebar')) {?>
-			<aside id="secondary" class="widget-area">
-				<?php dynamic_sidebar('sidebar'); ?>
-			</aside><!-- #secondary -->
-			<?php } ?>
-		</main><!-- #main -->
+			<?php get_template_part('template-parts/sidebar'); ?>
+		</main>
 		<?php get_template_part('template-parts/footer'); ?>
 		<?php wp_footer(); ?>
 	</body>

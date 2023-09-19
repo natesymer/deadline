@@ -64,44 +64,24 @@ if (!function_exists('deadline_search_svg')) {
 	}
 }
 
-if ( ! function_exists( 'deadline_post_thumbnail' ) ) {
-	/**
-	 * Displays an optional post thumbnail.
-	 *
-	 * Wraps the post thumbnail in an anchor element on index views, or a div
-	 * element when on single views.
-	 */
-	function deadline_post_thumbnail() {
-		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
+if (!function_exists('deadline_post_thumbnail')) {
+	function deadline_post_thumbnail($size = 'post-thumbnail') {
+		if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
 			return;
 		}
 
-		if ( is_singular() ) :
-			?>
-
+		if (is_singular()) { ?>
 			<div class="post-thumbnail">
 				<?php the_post_thumbnail(); ?>
-			</div><!-- .post-thumbnail -->
-
-		<?php else : ?>
-
+			</div>
+		<?php } else { ?>
 			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
-				<?php
-					the_post_thumbnail(
-						'post-thumbnail',
-						array(
-							'alt' => the_title_attribute(
-								array(
-									'echo' => false,
-								)
-							),
-						)
-					);
-				?>
+			<?php the_post_thumbnail($size, [
+				'alt' => the_title_attribute(['echo' => false])
+			]); ?>
 			</a>
-
-			<?php
-		endif; // End is_singular().
+		<?php
+		}
 	}
 }
 

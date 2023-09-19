@@ -1,16 +1,15 @@
 <header id="masthead" class="site-header">
-	<div class="header-top-row">
-		<div class="site-branding">
-			<?php the_custom_logo(); ?>
-		</div><!-- .site-branding -->
+	<div class="site-branding">
+		<?php the_custom_logo(); ?>
+	</div>
 
-		<nav id="site-navigation" class="primary-navigation">
-                        <?php
-                        wp_nav_menu([
-				'theme_location' => 'menu-2',
-				'menu_id'        => 'secondary-menu',
-				'fallback_cb'    => false
-			]);
-			?>
-	</nav><!-- #site-navigation -->
-</header><!-- #masthead -->
+	<?php
+	wp_nav_menu([
+		'container' => 'nav',
+		'container_id' => 'primary-navigation-container',
+		'menu_class' => 'menu primary-navigation',
+		'theme_location' => 'primary_navigation',
+		'fallback_cb'    => false
+	]);
+	?>
+</header>
