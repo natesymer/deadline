@@ -29,7 +29,12 @@
 			<section>
 			<?php
 				if (is_404()) {
-					get_template_part('template-parts/not-found');
+				?>
+					<div id="not-found-page">
+						<p>It looks like nothing was found at this location. Maybe try one of the links below or a search?</p>
+						<?php deadline_search_form(); ?>
+					</div>
+				<?php
 				} else if (have_posts()) {
 					while (have_posts()) {
 						the_post();
@@ -71,7 +76,9 @@
 			</section>
 			<?php get_template_part('template-parts/sidebar'); ?>
 		</main>
-		<?php get_template_part('template-parts/footer'); ?>
+		<footer id="colophon" class="site-footer">
+			<?php get_template_part('template-parts/footer'); ?>
+		</footer>
 		<?php wp_footer(); ?>
 	</body>
 </html>
