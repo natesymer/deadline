@@ -12,6 +12,7 @@ Requires PHP: 7.4
 	- Page Layout
 	- Elements
 # WordPress
+	- Search Bar
 	- Captions
 	- Galleries
 	- Accessibility
@@ -281,6 +282,39 @@ textarea {
 # WordPress
 --------------------------------------------------------------*/
 
+/* Search Bar
+--------------------------------------------- */
+
+.search-form {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.search-form input[type="search"] {
+	padding: 10px;
+	height: 44px;
+	box-sizing: border-box;
+	margin-right: 10px;
+}
+
+.search-form a svg {
+	height: 25px;
+	width: 25px;
+}
+
+.search-form a {
+	display: block;
+	height: 25px;
+	width: 25px;
+	color: #1e3b5b;
+}
+
+.search-form a:hover {
+	color: white;
+}
+
+
 /* Captions
 --------------------------------------------- */
 .wp-caption {
@@ -301,6 +335,7 @@ textarea {
 .wp-caption-text {
 	text-align: center;
 }
+
 
 /* Galleries
 --------------------------------------------- */

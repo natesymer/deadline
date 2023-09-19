@@ -1,16 +1,5 @@
 <?php
 
-/*
-	TODO:
-	- Copy search box css from brooklawn
-	- Figure out where header images for the following come from:
-		- 404
-		- search - has results
-		- search - no results
-		- archive
-		- no content
-*/
-
 add_action('after_setup_theme', function() {
 	add_theme_support('title-tag');
 	add_theme_support('post-thumbnails');

@@ -1,5 +1,6 @@
 <?php
 
+// TODO: implement the rest of these
 function deadline_header_background() {
 	if (is_404()) {
 	} else if (is_search()) {
@@ -15,13 +16,10 @@ function deadline_header_background() {
 	} else if (!have_posts()) {
 	}
 
-	if ($att_id) {
-		$src = wp_get_attachment_image_src($att_id, 'large')[0];
-		$srcset = wp_get_attachment_image_srcset($att_id, 'full');
-?>
-	<img class="header-page-background" src="<?= $src; ?>" srcset="<?= $srcset; ?>" />
-<?php
-	}
+	deadline_image_attachment($att_id, [
+		'size' => 'full',
+		'class' => 'header-page-background'
+	]);
 }
 
 function deadline_header_title() {
@@ -46,6 +44,32 @@ function deadline_header_title() {
 <?php
 }
 
+function deadline_not_found($msg) {
+	echo "<p>$msg</p>";
+	deadline_search_form();
+}
+
+function deadline_search_form() {
+?>
+<form role='search' method='get' class='search-form' action='/'>
+	<input type="search" class="search-field" placeholder="Search…" value="" name="s">
+	<a onclick="this.parentElement.submit()"><?php deadline_search_svg(); ?></a>
+</form>
+<?php
+}
+
+function deadline_search_svg() {
+?>
+<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"></path></svg>
+<?php
+}
+
+function deadline_excerpt() {
+?><div class="entry-excerpt"><?php
+	the_excerpt();
+?></div><?php
+}
+
 function deadline_content() {
 ?><div class="entry-content"><?php
 	the_content(
@@ -59,27 +83,7 @@ function deadline_content() {
 ?></div><?php
 }
 
-function deadline_not_found($msg) {
-	echo "<p>$msg</p>";
-	brooklawn_search_form();
-}
-
-function deadline_search_form() {
-?>
-<form role='search' method='get' class='deadline-search-form' action='/'>
-	<input type="search" class="deadline-search-field" placeholder="Search…" value="" name="s">
-	<a onclick="this.parentElement.submit()"><?php deadline_search_svg(); ?></a>
-</form>
-<?php
-}
-
-function deadline_search_svg() {
-?>
-<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"></path></svg>
-<?php
-}
-
-function deadline_updated_on() {
+function deadline_updated_at() {
 	?>
 	<span class="entry-date published updated">Updated at <time><?= get_the_modified_date(); ?></time></span>
 	<?php
@@ -103,4 +107,22 @@ function deadline_posted_by() {
 
 function deadline_copyright() {
 	?><span class="copyright">© <?= get_bloginfo('name'); ?></span><?php
+}
+
+function deadline_image_attachment($att_id, $args) {
+	if (!$att_id) return;
+	$args = wp_parse_args($args, ['class' => 'attachment', 'size' => 'medium']);
+	$class = $args['class'];
+	$size = $args['size'];
+
+	$src = wp_get_attachment_image_src($att_id, $size)[0];
+	$srcset = wp_get_attachment_image_srcset($att_id, $size);
+
+	echo "<img class='$class' src='$src' srcset='$srcset' />";
+}
+
+function deadline_title_link() {
+	?>
+	<a href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
+	<?php
 }
