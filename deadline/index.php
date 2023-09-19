@@ -51,6 +51,7 @@
 							deadline_title_link();
 							deadline_image_attachment(get_post_thumbnail_id());
 							deadline_posted_by();
+							deadline_posted_on();
 							if (deadline_is_updated()) {
 								deadline_updated_at();
 							}

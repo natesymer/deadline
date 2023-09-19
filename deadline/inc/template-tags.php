@@ -90,7 +90,7 @@ function deadline_updated_at() {
 }
 
 function deadline_posted_on() {
-	?>		
+	?>
 	<span class="entry-date published">Posted on <time><?= get_the_date(); ?></time></span>
 	<?php
 }
@@ -109,7 +109,7 @@ function deadline_copyright() {
 	?><span class="copyright">© <?= get_bloginfo('name'); ?></span><?php
 }
 
-function deadline_image_attachment($att_id, $args) {
+function deadline_image_attachment($att_id, $args = []) {
 	if (!$att_id) return;
 	$args = wp_parse_args($args, ['class' => 'attachment', 'size' => 'medium']);
 	$class = $args['class'];
@@ -123,6 +123,6 @@ function deadline_image_attachment($att_id, $args) {
 
 function deadline_title_link() {
 	?>
-	<a href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
+	<a class="entry-title" href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
 	<?php
 }
