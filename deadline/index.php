@@ -51,23 +51,6 @@
 							'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
 						]);
 					}
-/*
-					if (!is_singular()) { ?>
-						<nav class="navigation posts-navigation">
-							<div class="nav-links">
-								<div class="nav-previous">
-									<?= previous_posts_link('&laquo; Previous'); ?>
-								</div>
-								<div class="nav-next">
-									<?= next_posts_link('Next &raquo;') ?>
-								</div>
-							</div>
-						</nav>
-					<?php
-					} else {
-						posts_nav_link();
-					}
-*/
 				} else if (is_search()) { ?>
 					<div id='not-found-page'>
 						<p>Sorry, but nothing matched your search terms. Please try again with some different keywords.</p>
