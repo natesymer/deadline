@@ -76,6 +76,5 @@ add_filter('post_class', function($classes, $css_class, $post_id) {
 	return $classes;
 }, 10, 3);
 
-require_once get_template_directory() . '/inc/overrides.php';
 require_once get_template_directory() . '/inc/template-tags.php';
 

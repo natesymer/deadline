@@ -2,9 +2,8 @@
 
 $thumbnail_srcset = null;
 $thumbnail_src = null;
-if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
-        $thumbnail_src = '';
-} else {
+if (!(post_password_required() || is_attachment() || !has_post_thumbnail())) {
+	$thumbnail_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'medium')[0];
         $thumbnail_srcset = wp_get_attachment_image_srcset(get_post_thumbnail_id(), 'medium');
 }
 
@@ -12,9 +11,7 @@ $url = esc_url(get_permalink());
 
 ?>
 
-<a class="archive-item__title" href="<?= $url; ?>">
-<?php the_title("", ""); ?>
-</a>
+<a class="archive-item__title" href="<?= $url; ?>"><?php the_title(); ?></a>
 
 <div class="archive-item__body">
 	<a href="<?= $url; ?>" class="archive-item__image_container">
@@ -29,7 +26,7 @@ $url = esc_url(get_permalink());
 			<?= get_the_excerpt(); ?>
 		</div>
 
-		<a class="archive-item__read-more" href="<?= get_the_permalink(); ?>">
+		<a class="archive-item__read-more" href="<?= $url; ?>">
 			Read More
 		</a>
 	</div>

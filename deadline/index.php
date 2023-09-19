@@ -12,7 +12,6 @@
 				<div class="site-branding">
 					<?php the_custom_logo(); ?>
 				</div>
-
 				<?php
 				wp_nav_menu([
 					'container' => '',
@@ -29,12 +28,7 @@
 			<section>
 			<?php
 				if (is_404()) {
-				?>
-					<div id="not-found-page">
-						<p>It looks like nothing was found at this location. Maybe try one of the links below or a search?</p>
-						<?php deadline_search_form(); ?>
-					</div>
-				<?php
+					deadline_not_found('It looks like nothing was found at this location.');
 				} else if (have_posts()) {
 					while (have_posts()) {
 						the_post();
@@ -42,7 +36,17 @@
 	
 						if (is_front_page() && get_template_part('template-parts/front-page') !== false) {
 						} else if (is_singular()) {
-							get_template_part('template-parts/single-content', get_post_type());
+							deadline_posted_by();
+							deadline_posted_on();
+							if (deadline_is_updated()) {
+								deadline_updated_on();
+							}
+							deadline_content();
+
+							wp_link_pages([
+								'before' => '<div class="page-links">' . 'Pages:',
+								'after'  => '</div>',
+							]);
 						} else {
 							get_template_part('template-parts/multiple-content', get_post_type());
 						}
@@ -56,21 +60,13 @@
 							'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
 						]);
 					}
-				} else if (is_search()) { ?>
-					<div id='not-found-page'>
-						<p>Sorry, but nothing matched your search terms. Please try again with some different keywords.</p>
-						<?php brooklawn_search_form(); ?>
-					<div>
-				<?php
+				} else if (is_search()) {
+					deadline_not_found("Sorry, but nothing matched your search terms.");
 				} else if (is_home() && intval(get_option('page_on_front')) === 0 && current_user_can('publish_posts')) { ?>
 					<p>Ready to publish your first post? <a href="<?= esc_url(admin_url('post-new.php')); ?>">Get started here</a>.</p>
 				<?php
-				} else { ?>
-					<div id=not-found-page'>
-						<p>It seems we can't find what you're looking for. Perhaps searching can help.</p>
-						<?php brooklawn_search_form(); ?>
-					</div>
-				<?php
+				} else {
+					deadline_not_found("It seems we can't find what you're looking for.");
 				}
 				?>
 			</section>
@@ -85,7 +81,9 @@
 			?>
 		</main>
 		<footer id="colophon" class="site-footer">
-			<?php get_template_part('template-parts/footer'); ?>
+			<div class="site-info">
+				<?php deadline_copyright(); ?>
+			</div>
 		</footer>
 		<?php wp_footer(); ?>
 	</body>
