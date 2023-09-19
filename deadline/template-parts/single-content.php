@@ -1,4 +1,6 @@
-<?php get_template_part('template-parts/entry-header', get_post_type()); ?>
+<header class="entry-header">
+	<?php the_title("<h1 class='entry-title'>", "</h1>"); ?>
+</header>
 <div class="entry-content">
 	<?php
 	the_content(

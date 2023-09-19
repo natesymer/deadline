@@ -64,13 +64,14 @@ add_filter('body_class', function($classes) {
 
 add_filter('post_class', function($classes, $css_class, $post_id) {
 	if (is_singular()) {
-		$classes[] = 'post-plurality-single';
+		$classes[] = 'single';
 	} else {
-		$classes[] = 'post-plurality-multiple';
+		$classes[] = 'plural';
 	}
 
 	return $classes;
 }, 10, 3);
 
+require_once get_template_directory() . '/inc/overrides.php';
 require_once get_template_directory() . '/inc/template-tags.php';
 

@@ -26,13 +26,6 @@
 				if (is_404()) {
 					get_template_part('template-parts/not-found');
 				} else if (have_posts()) {
-				?><div class="article-wrapper"><?php
-					if (is_search()) {
-						get_template_part('template-parts/article-left');
-					} else {
-						get_template_part('template-parts/article-left', get_post_type());
-					}
-				?><div class="article-wrapper-inner"><?php
 				while (have_posts()) {
 					the_post();
 
@@ -59,7 +52,6 @@
 				} else {
 					posts_nav_link();
 				}
-				?></div></div><?php
 			} else {
 				get_template_part('template-parts/no-content');
 			}
