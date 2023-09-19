@@ -1,37 +1,77 @@
-<?php
-
-get_header();
-?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo('charset'); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+	<?php wp_body_open(); ?>
+	<?php get_template_part('template-parts/header'); ?>
 	<main id="primary" class="site-main">
 		<?php
-		if (have_posts()) {
-			if (is_home() && ! is_front_page()) {
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
+			if (is_404()) {
+				get_template_part('template-parts/page-header-not-found');
+			} else if (is_search()) {
+				get_template_part('template-parts/page-header-search');
+			} else if (is_archive()) {
+				get_template_part('template-parts/page-header-archive', get_queried_object()->name);
+			} else if (is_singular() && !is_front_page() && get_post_type() !== 'page') {
+				get_template_part('template-parts/page-header-singular', get_post_type());
+			} else if (!have_posts()) {
+				get_template_part('template-parts/page-header-no-content');
+			}?>
+			<section>
+			<?php
+				if (is_404()) {
+					get_template_part('template-parts/not-found');
+				} else if (have_posts()) {
+				?><div class="article-wrapper"><?php
+					if (is_search()) {
+						get_template_part('template-parts/article-left');
+					} else {
+						get_template_part('template-parts/article-left', get_post_type());
+					}
+				?><div class="article-wrapper-inner"><?php
+				while (have_posts()) {
+					the_post();
+					?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
+	
+					if (is_front_page()) {
+						get_template_part('template-parts/front-page');
+					} else if (is_singular()) {
+						get_template_part('template-parts/single-content', get_post_type());
+					} else {
+						get_template_part('template-parts/multiple-content', get_post_type());
+					}
+					?></article><?php
+				}
+
+				if (!is_front_page() && is_singular() && get_post_type() === 'post') {
+					the_post_navigation([
+						'prev_text' => '<span class="nav-subtitle">Previous:</span> <span class="nav-title">%title</span>',
+						'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
+					]);
+				}
+
+				if (!is_singular()) {
+					get_template_part('template-parts/archive-nav', get_post_type());
+				} else {
+					posts_nav_link();
+				}
+				?></div></div><?php
+			} else {
+				get_template_part('template-parts/no-content');
 			}
-
-			while (have_posts()) {
-				the_post();
-				get_template_part( 'template-parts/content', get_post_type() );
-			}
-
-			the_posts_navigation();
-		} else {
-			get_template_part('template-parts/content', 'none');
-		}
-		?>
-
-	</main><!-- #main -->
-<?php
-get_sidebar();
-get_template_part('template-parts/footer');
-?>
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-
-</body>
+			?>
+			</section>
+			<?php if (is_active_sidebar('sidebar')) {?>
+			<aside id="secondary" class="widget-area">
+				<?php dynamic_sidebar('sidebar'); ?>
+			</aside><!-- #secondary -->
+			<?php } ?>
+		</main><!-- #main -->
+		<?php get_template_part('template-parts/footer'); ?>
+		<?php wp_footer(); ?>
+	</body>
 </html>

@@ -1,19 +1,12 @@
 <?php
-/**
- * Custom template tags for this theme
- *
- * Eventually, some of the functionality here could be replaced by core features.
- *
- * @package deadline
- */
 
-if ( ! function_exists( 'deadline_posted_on' ) ) :
+if (!function_exists('deadline_posted_on')) {
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
 	 */
 	function deadline_posted_on() {
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		if (get_the_time('U') !== get_the_modified_time('U')) {
 			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
 		}
 
@@ -25,94 +18,53 @@ if ( ! function_exists( 'deadline_posted_on' ) ) :
 			esc_html( get_the_modified_date() )
 		);
 
+		$tagname = is_singular() ? 'a' : 'div';
+
 		$posted_on = sprintf(
 			/* translators: %s: post date. */
 			esc_html_x( 'Posted on %s', 'post date', 'deadline' ),
-			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+			'<' . $tagname . ' href="' . esc_url(get_permalink()) . '" rel="bookmark">' . $time_string . '</' . $tagname . '>'
 		);
 
-		echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+		echo "<span class='posted-on'>$posted_on</span>";
 	}
-endif;
+}
 
-if ( ! function_exists( 'deadline_posted_by' ) ) :
+if (!function_exists('deadline_posted_by')) {
 	/**
 	 * Prints HTML with meta information for the current author.
 	 */
 	function deadline_posted_by() {
 		$byline = sprintf(
 			/* translators: %s: post author. */
-			esc_html_x( 'by %s', 'post author', 'deadline' ),
-			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
+			esc_html_x('by %s', 'post author', 'deadline'),
+			"<span class='author vcard'><$tagname class='url fn n' href='" . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . "'>" . esc_html( get_the_author() ) . "</$tagname></span>"
 		);
 
-		echo '<span class="byline"> ' . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+		echo "<span class='byline'>$byline</span>";
 	}
-endif;
+}
 
-if ( ! function_exists( 'deadline_entry_footer' ) ) :
-	/**
-	 * Prints HTML with meta information for the categories, tags and comments.
-	 */
-	function deadline_entry_footer() {
-		// Hide category and tag text for pages.
-		if ( 'post' === get_post_type() ) {
-			/* translators: used between list items, there is a space after the comma */
-			$categories_list = get_the_category_list( esc_html__( ', ', 'deadline' ) );
-			if ( $categories_list ) {
-				/* translators: 1: list of categories. */
-				printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'deadline' ) . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
+if (!function_exists('deadline_search_form')) {
+    function deadline_search_form() {
+        ?>
+<form role='search' method='get' class='deadline-search-form' action='/'>
+        <input type="search" class="deadline-search-field" placeholder="Search …" value="" name="s">
+	<a onclick="this.parentElement.submit()"><?php deadline_search_svg(); ?></a>
+</form>
+        <?php
+    }
+}
 
-			/* translators: used between list items, there is a space after the comma */
-			$tags_list = get_the_tag_list( '', esc_html_x( ', ', 'list item separator', 'deadline' ) );
-			if ( $tags_list ) {
-				/* translators: 1: list of tags. */
-				printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'deadline' ) . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
-		}
-
-		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo '<span class="comments-link">';
-			comments_popup_link(
-				sprintf(
-					wp_kses(
-						/* translators: %s: post title */
-						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'deadline' ),
-						array(
-							'span' => array(
-								'class' => array(),
-							),
-						)
-					),
-					wp_kses_post( get_the_title() )
-				)
-			);
-			echo '</span>';
-		}
-
-		edit_post_link(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Edit <span class="screen-reader-text">%s</span>', 'deadline' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				wp_kses_post( get_the_title() )
-			),
-			'<span class="edit-link">',
-			'</span>'
-		);
+if (!function_exists('deadline_search_svg')) {
+	function deadline_search_svg() {
+?>
+<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z"></path></svg>
+<?php
 	}
-endif;
+}
 
-if ( ! function_exists( 'deadline_post_thumbnail' ) ) :
+if ( ! function_exists( 'deadline_post_thumbnail' ) ) {
 	/**
 	 * Displays an optional post thumbnail.
 	 *
@@ -151,15 +103,5 @@ if ( ! function_exists( 'deadline_post_thumbnail' ) ) :
 			<?php
 		endif; // End is_singular().
 	}
-endif;
+}
 
-if ( ! function_exists( 'wp_body_open' ) ) :
-	/**
-	 * Shim for sites older than 5.2.
-	 *
-	 * @link https://core.trac.wordpress.org/ticket/12563
-	 */
-	function wp_body_open() {
-		do_action( 'wp_body_open' );
-	}
-endif;
