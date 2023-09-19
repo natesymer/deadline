@@ -2,9 +2,15 @@
 
 /*
 	TODO:
-	1. Figure out page headers
-	2. Figure out what the base CSS should be
+	1. Figure out what the base CSS should be
 		- We don't want it too extensive
+	2. Copy search box css from brooklawn
+	3. Figure out where header images for the following come from:
+		- 404
+		- search - has results
+		- search - no results
+		- archive
+		- no content
 */
 
 add_action('after_setup_theme', function() {

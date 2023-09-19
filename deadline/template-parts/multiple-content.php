@@ -3,7 +3,7 @@
 $thumbnail_srcset = null;
 $thumbnail_src = null;
 if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
-        $thumbnail_src = brooklawn_placeholder_svg(200, 200);
+        $thumbnail_src = '';
 } else {
         $thumbnail_srcset = wp_get_attachment_image_srcset(get_post_thumbnail_id(), 'medium');
 }
@@ -12,7 +12,9 @@ $url = esc_url(get_permalink());
 
 ?>
 
-<?php the_title("<a class='archive-item__title' href='" . $url . "'>", "</a>"); ?>
+<a class="archive-item__title" href="<?= $url; ?>">
+<?php the_title("", ""); ?>
+</a>
 
 <div class="archive-item__body">
 	<a href="<?= $url; ?>" class="archive-item__image_container">

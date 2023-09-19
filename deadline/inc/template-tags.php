@@ -1,5 +1,54 @@
 <?php
 
+if (!function_exists('deadline_header_background')) {
+	function deadline_header_background() {
+		if (is_404()) {
+		} else if (is_search()) {
+			if (have_posts()) {
+
+			} else {
+
+			}
+		} else if (is_archive()) {
+		} else if (is_singular()) {
+			$att_id = get_post_thumbnail_id();
+		} else if (!have_posts()) {
+		}
+
+		if ($att_id) {
+			$src = wp_get_attachment_image_src($att_id, 'large')[0];
+			$srcset = wp_get_attachment_image_srcset($att_id, 'full');
+?>
+	<img class="header-page-background" src="<?= $src; ?>" srcset="<?= $srcset; ?>" />
+<?php
+		}
+	}
+}
+
+if (!function_exists('deadline_header_title')) {
+	function deadline_header_title() {
+		if (is_404()) {
+			$title = "Not found";
+		} else if (is_search()) {
+			$q = get_search_query();
+			if (have_posts()) {	
+				$title = printf('Results for: "%s"', "<span>$q</span>");
+			} else {
+				$title = printf('No results for: "%s"', "<span>$q</span>");
+			}
+		} else if (is_archive()) {
+			$title = get_the_archive_title();
+		} else if (is_singular()) {
+			$title = get_the_title();
+		} else if (!have_posts()) {
+			$title = "No content";
+		}
+?>
+	<h1 class="header-page-title"><?= $title ?></h1>
+<?php
+	}
+}
+
 if (!function_exists('deadline_posted_on')) {
 	/**
 	 * Prints HTML with meta information for the current post-date/time.

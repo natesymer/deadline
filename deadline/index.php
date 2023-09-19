@@ -7,10 +7,27 @@
 </head>
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
-	<?php get_template_part('template-parts/header'); ?>
+	<header id="masthead" class="site-header">
+		<nav>
+			<div class="site-branding">
+				<?php the_custom_logo(); ?>
+			</div>
+
+			<?php
+			wp_nav_menu([
+				'container' => '',
+				'menu_class' => 'menu primary-navigation',
+				'theme_location' => 'primary_navigation',
+				'fallback_cb'    => false
+			]);
+			?>
+		</nav>
+		<?php deadline_header_title(); ?>
+		<?php deadline_header_background(); ?>
+	</header>
 	<main id="primary" class="site-main">
 		<?php
-			if (is_404()) {
+			/*if (is_404()) {
 				get_template_part('template-parts/page-header-not-found');
 			} else if (is_search()) {
 				get_template_part('template-parts/page-header-search');
@@ -20,41 +37,41 @@
 				get_template_part('template-parts/page-header-singular', get_post_type());
 			} else if (!have_posts()) {
 				get_template_part('template-parts/page-header-no-content');
-			}?>
+			}*/?>
 			<section>
 			<?php
 				if (is_404()) {
 					get_template_part('template-parts/not-found');
 				} else if (have_posts()) {
-				while (have_posts()) {
-					the_post();
+					while (have_posts()) {
+						the_post();
 
-					?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
+						?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
 	
-					if (is_front_page() && get_template_part('template-parts/front-page') !== false) {
-					} else if (is_singular()) {
-						get_template_part('template-parts/single-content', get_post_type());
-					} else {
-						get_template_part('template-parts/multiple-content', get_post_type());
+						if (is_front_page() && get_template_part('template-parts/front-page') !== false) {
+						} else if (is_singular()) {
+							get_template_part('template-parts/single-content', get_post_type());
+						} else {
+							get_template_part('template-parts/multiple-content', get_post_type());
+						}
+						?></article><?php
 					}
-					?></article><?php
-				}
 
-				if (!is_front_page() && is_singular() && get_post_type() === 'post') {
-					the_post_navigation([
-						'prev_text' => '<span class="nav-subtitle">Previous:</span> <span class="nav-title">%title</span>',
-						'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
-					]);
-				}
+					if (!is_front_page() && is_singular() && get_post_type() === 'post') {
+						the_post_navigation([
+							'prev_text' => '<span class="nav-subtitle">Previous:</span> <span class="nav-title">%title</span>',
+							'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
+						]);
+					}
 
-				if (!is_singular()) {
-					get_template_part('template-parts/archive-nav', get_post_type());
+					if (!is_singular()) {
+						get_template_part('template-parts/archive-nav', get_post_type());
+					} else {
+						posts_nav_link();
+					}
 				} else {
-					posts_nav_link();
+					get_template_part('template-parts/no-content');
 				}
-			} else {
-				get_template_part('template-parts/no-content');
-			}
 			?>
 			</section>
 			<?php get_template_part('template-parts/sidebar'); ?>
