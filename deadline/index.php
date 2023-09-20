@@ -49,7 +49,7 @@
 							deadline_link_pages();
 						} else {
 							deadline_title_link();
-							deadline_image_attachment(get_post_thumbnail_id());
+							deadline_post_thumbnail();
 							deadline_posted_by();
 							deadline_posted_on();
 							if (deadline_is_updated()) {

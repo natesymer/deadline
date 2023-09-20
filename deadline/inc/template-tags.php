@@ -18,9 +18,7 @@ function deadline_header_splash() {
 	}
 
 	if ($att_id) {
-		deadline_image_attachment($att_id, [
-			'size' => 'full',
-		]);
+		echo wp_get_attachment_image($att_id, 'full');
 	}
 }
 
@@ -84,18 +82,11 @@ function deadline_copyright() {
 	?><span class="copyright">© <?= date("Y"); ?> <?= get_bloginfo('name'); ?></span><?php
 }
 
-function deadline_image_attachment($att_id, $args = []) {
-	if (!$att_id) return;
-	$args = wp_parse_args($args, ['class' => 'post-attachment', 'size' => 'medium']);
-	$class = $args['class'];
-	$size = $args['size'];
-
-	$alt = get_post_meta($att_id, '_wp_attachment_image_alt', true);
-	$title = get_the_title($att_id);
-	$src = wp_get_attachment_image_src($att_id, $size)[0];
-	$srcset = wp_get_attachment_image_srcset($att_id, $size);
-
-	echo "<img class='$class' src='$src' srcset='$srcset' alt='$alt' title='$title' />";
+function deadline_post_thumbnail($size = 'medium') {
+	$id = get_post_thumbnail_id();
+	if ($id) {
+		echo wp_get_attachment_image($id, $size);
+	}
 }
 
 function deadline_title_link() {
