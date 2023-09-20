@@ -21,8 +21,12 @@
 				]);
 				?>
 			</nav>
-			<?php deadline_header_title(); ?>
-			<?php deadline_header_splash(); ?>
+			<h1 class="header-title">
+				<?php deadline_header_title(); ?>
+			</h1>
+			<figure class="header-splash">
+				<?php deadline_header_splash(); ?>
+			</figure>
 		</header>
 		<main id="primary">
 			<section>

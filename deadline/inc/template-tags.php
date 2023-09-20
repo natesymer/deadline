@@ -20,7 +20,6 @@ function deadline_header_splash() {
 	if ($att_id) {
 		deadline_image_attachment($att_id, [
 			'size' => 'full',
-			'class' => 'header-splash'
 		]);
 	}
 }
@@ -42,7 +41,7 @@ function deadline_header_title() {
 	} else if (!have_posts()) {
 		$title = "No content";
 	}
-	echo "<h1 class='header-title'>$title</h1>";
+	echo $title;
 }
 
 function deadline_not_found($msg) {
@@ -55,8 +54,8 @@ function deadline_excerpt() {
 }
 
 function deadline_content() {
-	$content = the_content(sprintf('Continue reading "%s"', wp_kses_post(get_the_title())));
-	?><div class="post-content"><?= $content; ?></div><?php
+	$read_more = sprintf('Continue reading "%s"', wp_kses_post(get_the_title()));
+	?><section class="post-content"><?php the_content($read_more); ?></section><?php
 }
 
 function deadline_updated_at() {
@@ -91,10 +90,12 @@ function deadline_image_attachment($att_id, $args = []) {
 	$class = $args['class'];
 	$size = $args['size'];
 
+	$alt = get_post_meta($att_id, '_wp_attachment_image_alt', true);
+	$title = get_the_title($att_id);
 	$src = wp_get_attachment_image_src($att_id, $size)[0];
 	$srcset = wp_get_attachment_image_srcset($att_id, $size);
 
-	echo "<img class='$class' src='$src' srcset='$srcset' />";
+	echo "<img class='$class' src='$src' srcset='$srcset' alt='$alt' title='$title' />";
 }
 
 function deadline_title_link() {
