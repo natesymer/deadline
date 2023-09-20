@@ -78,11 +78,3 @@ function deadline_title_link() {
 	<a class="post-title" href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
 	<?php
 }
-
-function deadline_internal_pagination() {
-	wp_link_pages([
-		'before' => '<nav class="page-links">Pages:',
-		'after'  => '</nav>',
-	]);
-}
-

@@ -46,7 +46,7 @@
 							}
 						}
 						deadline_content();
-						deadline_internal_pagination();
+						wp_link_pages();
 						the_post_navigation();
 					} else {
 						deadline_title_link();
