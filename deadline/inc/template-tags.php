@@ -69,14 +69,7 @@ function deadline_excerpt() {
 
 function deadline_content() {
 ?><div class="post-content"><?php
-	the_content(
-		sprintf(
-			wp_kses('Continue reading <span class="screen-reader-text">"%s"</span>', [
-				'span' => ['class' => []]
-			]),
-			wp_kses_post(get_the_title())
-		)
-	);
+	the_content(sprintf('Continue reading "%s"', wp_kses_post(get_the_title())));
 ?></div><?php
 }
 
