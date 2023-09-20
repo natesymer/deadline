@@ -23,12 +23,7 @@ function deadline_get_header_title() {
 	if (is_404()) {
 		$title = "Not found";
 	} else if (is_search()) {
-		$q = get_search_query();
-		if (have_posts()) {	
-			$title = printf('Results for: "%s"', "<span>$q</span>");
-		} else {
-			$title = printf('No results for: "%s"', "<span>$q</span>");
-		}
+		$title = sprintf(have_posts() ? 'Results for: "%s"' : 'No results for: "%s"', get_search_query());
 	} else if (is_archive()) {
 		$title = get_the_archive_title();
 	} else if (is_singular()) {
