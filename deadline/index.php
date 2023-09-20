@@ -9,9 +9,9 @@
 		<?php wp_body_open(); ?>
 		<header id="masthead">
 			<nav>
-				<div class="site-branding">
+				<figure class="site-branding">
 					<?php the_custom_logo(); ?>
-				</div>
+				</figure>
 				<?php
 				wp_nav_menu([
 					'container' => '',
@@ -33,20 +33,16 @@
 					while (have_posts()) {
 						the_post();
 						?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
-	
-						if (is_front_page() && get_template_part('template-parts/front-page') !== false) {
-						} else if (is_singular()) {
-							deadline_posted_by();
-							deadline_posted_on();
-							if (deadline_is_updated()) {
-								deadline_updated_at();
+						if (is_singular()) {
+							if (!is_front_page()) {
+								deadline_posted_by();
+								deadline_posted_on();
+								if (deadline_is_updated()) {
+									deadline_updated_at();
+								}
 							}
 							deadline_content();
-
-							wp_link_pages([
-								'before' => '<div class="page-links">' . 'Pages:',
-								'after'  => '</div>',
-							]);
+							deadline_link_pages();
 						} else {
 							deadline_title_link();
 							deadline_image_attachment(get_post_thumbnail_id());
@@ -84,9 +80,7 @@
 			<?php } ?>
 		</main>
 		<footer id="colophon" class="site-footer">
-			<div class="site-info">
-				<?php deadline_copyright(); ?>
-			</div>
+			<?php deadline_copyright(); ?>
 		</footer>
 		<?php wp_footer(); ?>
 	</body>
