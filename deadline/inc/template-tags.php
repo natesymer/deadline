@@ -1,8 +1,7 @@
 <?php
 
 // TODO: implement the rest of these
-function deadline_header_splash() {
-	$att_id = false;
+function deadline_get_header_image_id() {
 	if (is_404()) {
 	} else if (is_search()) {
 		if (have_posts()) {
@@ -11,18 +10,16 @@ function deadline_header_splash() {
 	} else if (is_archive()) {
 	} else if (is_singular()) {
 		if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
-			return;
+			return false;
 		}
-		$att_id = get_post_thumbnail_id();
+		return get_post_thumbnail_id();
 	} else if (!have_posts()) {
 	}
 
-	if ($att_id) {
-		echo wp_get_attachment_image($att_id, 'full');
-	}
+	return false;
 }
 
-function deadline_header_title() {
+function deadline_get_header_title() {
 	if (is_404()) {
 		$title = "Not found";
 	} else if (is_search()) {
@@ -39,12 +36,7 @@ function deadline_header_title() {
 	} else if (!have_posts()) {
 		$title = "No content";
 	}
-	echo $title;
-}
-
-function deadline_not_found($msg) {
-	echo "<p>$msg</p>";
-	echo get_search_form();
+	return $title;
 }
 
 function deadline_excerpt() {
@@ -78,15 +70,12 @@ function deadline_posted_by() {
 	echo "<a class='post-author' href='$url'>$author</a>";
 }
 
-function deadline_copyright() {
-	?><span class="copyright">© <?= date("Y"); ?> <?= get_bloginfo('name'); ?></span><?php
+function deadline_copyright($name = null) {
+	?><span class="copyright">© <?= date("Y"); ?> <?= $name ? $name : get_bloginfo('name'); ?></span><?php
 }
 
 function deadline_post_thumbnail($size = 'medium') {
-	$id = get_post_thumbnail_id();
-	if ($id) {
-		echo wp_get_attachment_image($id, $size);
-	}
+	echo wp_get_attachment_image(get_post_thumbnail_id(), $size);
 }
 
 function deadline_title_link() {
@@ -95,9 +84,9 @@ function deadline_title_link() {
 	<?php
 }
 
-function deadline_link_pages() {
+function deadline_internal_pagination() {
 	wp_link_pages([
-		'before' => '<nav class="page-links">' . 'Pages:',
+		'before' => '<nav class="page-links">Pages:',
 		'after'  => '</nav>',
 	]);
 }

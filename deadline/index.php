@@ -8,8 +8,8 @@
 	<body <?php body_class(); ?>>
 		<?php wp_body_open(); ?>
 		<header id="masthead">
-			<nav>
-				<figure class="site-branding">
+			<nav id="sitenav">
+				<figure id="branding">
 					<?php the_custom_logo(); ?>
 				</figure>
 				<?php
@@ -22,17 +22,17 @@
 				?>
 			</nav>
 			<h1 class="header-title">
-				<?php deadline_header_title(); ?>
+				<?= deadline_get_header_title(); ?>
 			</h1>
 			<figure class="header-splash">
-				<?php deadline_header_splash(); ?>
+				<?= wp_get_attachment_image(deadline_get_header_image_id(), 'full'); ?>
 			</figure>
 		</header>
 		<main id="primary">
-			<section>
+			<section id="content">
 			<?php
 				if (is_404()) {
-					deadline_not_found('It looks like nothing was found at this location.');
+					?><p>It looks like nothing was found at this location.</p><?php
 				} else if (have_posts()) {
 					while (have_posts()) {
 						the_post();
@@ -46,7 +46,11 @@
 								}
 							}
 							deadline_content();
-							deadline_link_pages();
+							deadline_internal_pagination();
+							the_post_navigation([
+								'prev_text' => '« %title',
+								'next_text' => '%title »',
+							]);
 						} else {
 							deadline_title_link();
 							deadline_post_thumbnail();
@@ -59,21 +63,20 @@
 						}
 						?></article><?php
 					}
-
-					$show_nav = is_singular() ? !is_front_page() && get_post_type === 'post' : true;
-					if ($show_nav) {
-						the_post_navigation([
-							'prev_text' => '<span class="nav-subtitle">Previous:</span> <span class="nav-title">%title</span>',
-							'next_text' => '<span class="nav-subtitle">Next:</span> <span class="nav-title">%title</span>',
+					if (!is_singular()) {
+						the_posts_navigation([
+							'prev_text' => '« %title',
+							'next_text' => '%title »',
 						]);
 					}
 				} else if (is_search()) {
-					deadline_not_found("Sorry, but nothing matched your search terms.");
+					?><p>Sorry, but nothing matched your search terms.</p><?php
+					echo get_search_form();
 				} else if (is_home() && intval(get_option('page_on_front')) === 0 && current_user_can('publish_posts')) { ?>
 					<p>Ready to publish your first post? <a href="<?= esc_url(admin_url('post-new.php')); ?>">Get started here</a>.</p>
 				<?php
 				} else {
-					deadline_not_found("It seems we can't find what you're looking for.");
+					?><p>It seems we can't find what you're looking for.</p><?php
 				}
 				?>
 			</section>
