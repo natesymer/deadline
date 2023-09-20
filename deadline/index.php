@@ -7,7 +7,7 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<?php wp_body_open(); ?>
-		<header id="masthead" class="site-header">
+		<header id="masthead">
 			<nav>
 				<div class="site-branding">
 					<?php the_custom_logo(); ?>
@@ -22,9 +22,9 @@
 				?>
 			</nav>
 			<?php deadline_header_title(); ?>
-			<?php deadline_header_background(); ?>
+			<?php deadline_header_splash(); ?>
 		</header>
-		<main id="primary" class="site-main">
+		<main id="primary">
 			<section>
 			<?php
 				if (is_404()) {

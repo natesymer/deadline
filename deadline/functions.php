@@ -52,6 +52,8 @@ add_filter('body_class', function($classes) {
 });
 
 add_filter('post_class', function($classes, $css_class, $post_id) {
+	$classes = array_diff($classes, ['hentry']);
+	$classes[] = 'wp-post';
 	$classes[] = is_singular() ? 'single' : 'plural';
 	return $classes;
 }, 10, 3);

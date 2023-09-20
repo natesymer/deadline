@@ -1,7 +1,7 @@
 <?php
 
 // TODO: implement the rest of these
-function deadline_header_background() {
+function deadline_header_splash() {
 	$att_id = false;
 	if (is_404()) {
 	} else if (is_search()) {
@@ -20,7 +20,7 @@ function deadline_header_background() {
 	if ($att_id) {
 		deadline_image_attachment($att_id, [
 			'size' => 'full',
-			'class' => 'header-page-background'
+			'class' => 'header-splash'
 		]);
 	}
 }
@@ -43,7 +43,7 @@ function deadline_header_title() {
 		$title = "No content";
 	}
 ?>
-	<h1 class="header-page-title"><?= $title ?></h1>
+	<h1 class="header-title"><?= $title ?></h1>
 <?php
 }
 
@@ -64,11 +64,11 @@ function deadline_search_form() {
 }
 
 function deadline_excerpt() {
-?><div class="entry-excerpt"><?php the_excerpt(); ?></div><?php
+?><div class="post-excerpt"><?php the_excerpt(); ?></div><?php
 }
 
 function deadline_content() {
-?><div class="entry-content"><?php
+?><div class="post-content"><?php
 	the_content(
 		sprintf(
 			wp_kses('Continue reading <span class="screen-reader-text">"%s"</span>', [
@@ -82,13 +82,13 @@ function deadline_content() {
 
 function deadline_updated_at() {
 	?>
-	<span class="entry-date published updated">Updated at <time><?= get_the_modified_date(); ?></time></span>
+	<span class="post-date published updated">Updated at <time><?= get_the_modified_date(); ?></time></span>
 	<?php
 }
 
 function deadline_posted_on() {
 	?>
-	<span class="entry-date published">Posted on <time><?= get_the_date(); ?></time></span>
+	<span class="post-date published">Posted on <time><?= get_the_date(); ?></time></span>
 	<?php
 }
 
@@ -99,7 +99,7 @@ function deadline_is_updated() {
 function deadline_posted_by() {
 	$url = esc_html(get_author_posts_url(get_the_author_meta('ID')));
 	$author = esc_html(get_the_author());
-	echo "<a class='author' href='$url'>$author</a>";
+	echo "<a class='post-author' href='$url'>$author</a>";
 }
 
 function deadline_copyright() {
@@ -108,7 +108,7 @@ function deadline_copyright() {
 
 function deadline_image_attachment($att_id, $args = []) {
 	if (!$att_id) return;
-	$args = wp_parse_args($args, ['class' => 'attachment', 'size' => 'medium']);
+	$args = wp_parse_args($args, ['class' => 'post-attachment', 'size' => 'medium']);
 	$class = $args['class'];
 	$size = $args['size'];
 
@@ -120,6 +120,6 @@ function deadline_image_attachment($att_id, $args = []) {
 
 function deadline_title_link() {
 	?>
-	<a class="entry-title" href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
+	<a class="post-title" href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
 	<?php
 }
