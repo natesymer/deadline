@@ -21,8 +21,6 @@ add_filter('after_setup_theme', function() {
 	register_nav_menus([
 		'primary_navigation' => 'Primary Navigation'
 	]);
-
-	$GLOBALS['content_width'] = apply_filters('deadline_content_width', 640);
 });
 
 add_filter('widgets_init', function() {
@@ -52,4 +50,3 @@ add_filter('post_class', function($classes, $css_class, $post_id) {
 	$classes[] = is_singular() ? 'single' : 'plural';
 	return $classes;
 }, 10, 3);
-
