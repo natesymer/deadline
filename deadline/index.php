@@ -47,10 +47,7 @@
 						}
 						deadline_content();
 						deadline_internal_pagination();
-						the_post_navigation([
-							'prev_text' => '« %title',
-							'next_text' => '%title »',
-						]);
+						the_post_navigation();
 					} else {
 						deadline_title_link();
 						deadline_post_thumbnail();
@@ -64,10 +61,7 @@
 					?></article><?php
 				}
 				if (!is_singular()) {
-					the_posts_navigation([
-						'prev_text' => '« %title',
-						'next_text' => '%title »',
-					]);
+					the_posts_navigation();
 				}
 			} else if (is_search()) {
 				?><p>Sorry, but nothing matched your search terms.</p><?php
