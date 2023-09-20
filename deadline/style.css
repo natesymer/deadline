@@ -6,12 +6,13 @@ Requires PHP: 7.4
 
 /* CSS Reset --------------------------------------------------------------- */
 
-*, *::before, *::after {
+* {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
 	font-family: inherit;
 	color: inherit;
+	background: inherit;
 	box-sizing: inherit;
 }
 
@@ -20,11 +21,13 @@ html {
 	font-size: 16px;
 	font-family: sans-serif;
 	color: black;
+	background: transparent;
 	line-height: 1.5;
 }
 
 ol, ul {
 	list-style: none;
+	list-style-position: inside;
 }
 
 img {
@@ -36,8 +39,17 @@ dfn, cite, em, i {
 	font-style: italic;
 }
 
-code, kbd, tt, var {
+pre, code, kbd, var {
 	font-family: monospace;
+}
+
+pre, code {
+	tab-width: 4;
+}
+
+pre:hover,
+pre:focus {
+	width: min-content;
 }
 
 textarea {
@@ -55,12 +67,13 @@ del {
 	text-decoration: line-through;
 }
 
-a {
-	color: #4169e1;
+abbr {
+	text-decoration: underline dotted;
+	cursor: help;
 }
 
-a:visited {
-	color: inherit;
+a, a:visited {
+	color: #4169e1;
 }
 
 a:hover,
@@ -147,52 +160,26 @@ footer {
 
 /* Post Content ------------------------------------------------------------ */
 
-article.wp-post p {
-	margin-bottom: 1.5em;
+article.wp-post p,
+article.wp-post pre,
+article.wp-post address,
+article.wp-post figure,
+article.wp-post hr,
+article.wp-post ul,
+article.wp-post ol {
+	margin: 0 0 1.5em;
 }
 
 article.wp-post blockquote {
 	margin: 0 1.5em;
 }
 
-article.wp-post address {
-	margin: 0 0 1.5em;
-}
-
-article.wp-post pre {
-	background: #eee;
-	font-family: monospace;
-	line-height: 1.6;
-	margin-bottom: 1.6em;
-	max-width: 100%;
-	overflow: auto;
-	padding: 1.6em;
-}
-
-article.wp-post abbr,
-article.wp-post acronym {
-	border-bottom: 1px dotted #666;
-	cursor: help;
-}
-
-article.wp-post hr {
-	background-color: #ccc;
-	border: 0;
-	height: 1px;
-	margin-bottom: 1.5em;
-}
-
-article.wp-post ul,
-article.wp-post ol {
-	margin: 0 0 1.5em 3em;
-}
-
 article.wp-post ul {
-	list-style: disc;
+	list-style-type: disc;
 }
 
 article.wp-post ol {
-	list-style: decimal;
+	list-style-type: decimal;
 }
 
 article.wp-post li > ul,
@@ -214,14 +201,5 @@ article.wp-post embed,
 article.wp-post iframe,
 article.wp-post object {
 	max-width: 100%;
-}
-
-article.wp-post figure {
-	margin: 1em 0;
-}
-
-article.wp-post table {
-	margin: 0 0 1.5em;
-	width: 100%;
 }
 
