@@ -29,11 +29,6 @@ ol, ul {
 	list-style: none;
 }
 
-img {
-	max-width: 100%;
-	height: auto;
-}
-
 dfn, cite, em, i {
 	font-style: italic;
 }
@@ -150,7 +145,8 @@ input[type="submit"] {
 /* Make sure embeds and iframes fit their containers. */
 .post-content embed,
 .post-content iframe,
-.post-content object {
+.post-content object,
+.post-content img {
 	max-width: 100%;
 }
 
