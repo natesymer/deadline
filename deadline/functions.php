@@ -44,10 +44,6 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 add_filter('body_class', function($classes) {
-	if (!is_singular()) {
-		$classes[] = 'hfeed';
-	}
-
 	if (!is_active_sidebar('sidebar')) {
 		$classes[] = 'no-sidebar';
 	}
@@ -56,12 +52,7 @@ add_filter('body_class', function($classes) {
 });
 
 add_filter('post_class', function($classes, $css_class, $post_id) {
-	if (is_singular()) {
-		$classes[] = 'single';
-	} else {
-		$classes[] = 'plural';
-	}
-
+	$classes[] = is_singular() ? 'single' : 'plural';
 	return $classes;
 }, 10, 3);
 
