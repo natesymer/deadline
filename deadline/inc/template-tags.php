@@ -4,9 +4,6 @@
 function deadline_get_header_image_id() {
 	if (is_404()) {
 	} else if (is_search()) {
-		if (have_posts()) {
-		} else {
-		}
 	} else if (is_archive()) {
 	} else if (is_singular()) {
 		if (post_password_required() || is_attachment() || !has_post_thumbnail()) {
@@ -21,17 +18,15 @@ function deadline_get_header_image_id() {
 
 function deadline_get_header_title() {
 	if (is_404()) {
-		$title = "Not found";
+		return "Not found";
 	} else if (is_search()) {
-		$title = sprintf(have_posts() ? 'Results for: "%s"' : 'No results for: "%s"', get_search_query());
+		return sprintf(have_posts() ? 'Results for: "%s"' : 'No results for: "%s"', get_search_query());
 	} else if (is_archive()) {
-		$title = get_the_archive_title();
+		return get_the_archive_title();
 	} else if (is_singular()) {
-		$title = get_the_title();
-	} else if (!have_posts()) {
-		$title = "No content";
+		return get_the_title();
 	}
-	return $title;
+	return "No content";
 }
 
 function deadline_excerpt() {
@@ -44,15 +39,11 @@ function deadline_content() {
 }
 
 function deadline_updated_at() {
-	?>
-	<span class="post-date published updated">Updated at <time><?= get_the_modified_date(); ?></time></span>
-	<?php
+	?><span class="post-date published updated">Updated <time><?= get_the_modified_date(); ?></time></span><?php
 }
 
 function deadline_posted_on() {
-	?>
-	<span class="post-date published">Posted on <time><?= get_the_date(); ?></time></span>
-	<?php
+	?><span class="post-date published">Published <time><?= get_the_date(); ?></time></span><?php
 }
 
 function deadline_is_updated() {
@@ -60,7 +51,7 @@ function deadline_is_updated() {
 }
 
 function deadline_copyright($name = null) {
-	?><span class="copyright">© <?= date("Y"); ?> <?= $name ? $name : get_bloginfo('name'); ?></span><?php
+	printf('<span class="copyright">© %s %s</span>', date('Y'), $name ? $name : get_bloginfo('name'));
 }
 
 function deadline_post_thumbnail($size = 'medium') {
@@ -68,7 +59,5 @@ function deadline_post_thumbnail($size = 'medium') {
 }
 
 function deadline_title_link() {
-	?>
-	<a class="post-title" href="<?= esc_html(get_the_permalink()); ?>"><?php the_title(); ?></a>
-	<?php
+	printf('<a class="post-title" href="%s">%s</a>', get_permalink(), get_the_title());
 }
