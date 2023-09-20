@@ -31,54 +31,51 @@
 		<main id="primary">
 			<section id="content">
 			<?php
-				if (is_404()) {
-					?><p>It looks like nothing was found at this location.</p><?php
-				} else if (have_posts()) {
-					while (have_posts()) {
-						the_post();
-						?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
-						if (is_singular()) {
-							if (!is_front_page()) {
-								deadline_posted_by();
-								deadline_posted_on();
-								if (deadline_is_updated()) {
-									deadline_updated_at();
-								}
-							}
-							deadline_content();
-							deadline_internal_pagination();
-							the_post_navigation([
-								'prev_text' => '« %title',
-								'next_text' => '%title »',
-							]);
-						} else {
-							deadline_title_link();
-							deadline_post_thumbnail();
+			if (is_404()) {
+				?><p>It looks like nothing was found at this location.</p><?php
+			} else if (have_posts()) {
+				while (have_posts()) {
+					the_post();
+					?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
+					if (is_singular()) {
+						if (!is_front_page()) {
 							deadline_posted_by();
 							deadline_posted_on();
 							if (deadline_is_updated()) {
 								deadline_updated_at();
 							}
-							deadline_excerpt();
 						}
-						?></article><?php
-					}
-					if (!is_singular()) {
-						the_posts_navigation([
+						deadline_content();
+						deadline_internal_pagination();
+						the_post_navigation([
 							'prev_text' => '« %title',
 							'next_text' => '%title »',
 						]);
+					} else {
+						deadline_title_link();
+						deadline_post_thumbnail();
+						deadline_posted_by();
+						deadline_posted_on();
+						if (deadline_is_updated()) {
+							deadline_updated_at();
+						}
+						deadline_excerpt();
 					}
-				} else if (is_search()) {
-					?><p>Sorry, but nothing matched your search terms.</p><?php
-					echo get_search_form();
-				} else if (is_home() && intval(get_option('page_on_front')) === 0 && current_user_can('publish_posts')) { ?>
-					<p>Ready to publish your first post? <a href="<?= esc_url(admin_url('post-new.php')); ?>">Get started here</a>.</p>
-				<?php
-				} else {
-					?><p>It seems we can't find what you're looking for.</p><?php
+					?></article><?php
 				}
-				?>
+				if (!is_singular()) {
+					the_posts_navigation([
+						'prev_text' => '« %title',
+						'next_text' => '%title »',
+					]);
+				}
+			} else if (is_search()) {
+				?><p>Sorry, but nothing matched your search terms.</p><?php
+				echo get_search_form();
+			} else {
+				?><p>It seems we can't find what you're looking for.</p><?php
+			}
+			?>
 			</section>
 			<?php if (is_active_sidebar('sidebar')) { ?>
 			<aside id="secondary" class="widget-area">
