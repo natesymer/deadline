@@ -59,12 +59,6 @@ function deadline_is_updated() {
 	return get_the_time('U') !== get_the_modified_time('U');
 }
 
-function deadline_posted_by() {
-	$url = esc_html(get_author_posts_url(get_the_author_meta('ID')));
-	$author = esc_html(get_the_author());
-	echo "<a class='post-author' href='$url'>$author</a>";
-}
-
 function deadline_copyright($name = null) {
 	?><span class="copyright">© <?= date("Y"); ?> <?= $name ? $name : get_bloginfo('name'); ?></span><?php
 }

@@ -39,7 +39,7 @@
 					?><article id="post-<?php the_ID(); ?>" <?php post_class(); ?>><?php
 					if (is_singular()) {
 						if (!is_front_page()) {
-							deadline_posted_by();
+							the_author_posts_link();
 							deadline_posted_on();
 							if (deadline_is_updated()) {
 								deadline_updated_at();
@@ -51,7 +51,7 @@
 					} else {
 						deadline_title_link();
 						deadline_post_thumbnail();
-						deadline_posted_by();
+						the_author_posts_link();
 						deadline_posted_on();
 						if (deadline_is_updated()) {
 							deadline_updated_at();
