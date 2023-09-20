@@ -1,7 +1,7 @@
 <?php
 
-// TODO: implement the rest of these
 function deadline_get_header_image_id() {
+	// DEVELOPERS: figure out a way to implement the rest of me!
 	if (is_404()) {
 	} else if (is_search()) {
 	} else if (is_archive()) {
