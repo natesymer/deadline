@@ -36,7 +36,7 @@ add_filter('widgets_init', function() {
 });
 
 add_filter('wp_enqueue_scripts', function() {
-	wp_enqueue_style('deadline-style', get_stylesheet_uri(), [], '0.0.1');
+	wp_enqueue_style('parent-theme-style', get_stylesheet_uri(), [], '0.0.1');
 });
 
 add_filter('body_class', function($classes) {
