@@ -51,21 +51,6 @@ textarea {
 	width: 150px; /* Same width as input[type=text] */
 }
 
-mark, ins {
-	background: yellow;
-	text-decoration: none;
-}
-
-del {
-	background: red;
-	text-decoration: line-through;
-}
-
-abbr {
-	text-decoration: underline dotted;
-	cursor: help;
-}
-
 a, a:visited {
 	color: #4169e1;
 }
@@ -75,25 +60,6 @@ a:focus,
 a:active {
 	color: #191970;
 }
-
-input,
-textarea,
-select {
-	border: 1px solid;
-	border-radius: 3px;
-	padding: 3px;
-}
-
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-	border: 1px solid;
-	border-radius: 3px;
-	line-height: 1;
-	padding: 0.6em 1em 0.4em;
-}
-
 
 /* Post Content ------------------------------------------------------------ */
 
