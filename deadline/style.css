@@ -6,6 +6,7 @@ Requires PHP: 7.4
 
 /* CSS Reset --------------------------------------------------------------- */
 
+/* [1] tl;dr; All elements inherit some properties from their parent (recursive step) */
 * {
 	margin: 0;
 	padding: 0;
@@ -14,8 +15,10 @@ Requires PHP: 7.4
 	color: inherit;
 	background: inherit;
 	box-sizing: inherit;
+	/* Add more properties here */
 }
 
+/* [2] tl;dr; Provide inheritable defaults (base case) */
 html {
 	box-sizing: border-box;
 	font-size: 16px;
@@ -23,7 +26,10 @@ html {
 	color: black;
 	background: transparent;
 	line-height: 1.5;
+	/* provide defaults for properties in [1] (except margin & padding */
 }
+
+/* The rest are sane, unopinionated defaults */
 
 ol, ul {
 	list-style: none;
@@ -62,6 +68,9 @@ a:active {
 }
 
 /* Post Content ------------------------------------------------------------ */
+
+/* Applies to the content rendered via deadline_post_content()
+   largely seeks to undo the margin reset from above for post content styling */
 
 .post-content p,
 .post-content pre,

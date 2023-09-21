@@ -17,3 +17,11 @@ This theme doesn't stick you with any bad technological decisions - because it d
 Nothing else. You'll find that 80% of the time, all you'll need to do is write some CSS.
 
 Remember: you're not configuring a theme, you're writing one! To serve the purpose of being a theme for hacking, deadline is less than 350 SLOC & 5 source files (with one existing to import two of the others). You have a deadline to make, so you don't have time to learn a theme's peculiarities.
+
+## When you're hacking
+
+First, try to get the desired result via CSS. Deadline renders HTML to allow for the greatest styling flexibility, so you might only have to change the order of elements to get the desired result.
+
+Beyond that, it's all you. You can make this theme as complicated or keep it as simple as you want.
+
+Happy hacking!

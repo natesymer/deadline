@@ -1,5 +1,6 @@
 <?php
 
+/* Gets the post ID of the attachment to display in the splash area of the header */
 function deadline_get_header_image_id() {
 	// DEVELOPERS: figure out a way to implement the rest of me!
 	if (is_404()) {
@@ -16,6 +17,7 @@ function deadline_get_header_image_id() {
 	return false;
 }
 
+/* Gets a title to display in the header */
 function deadline_get_header_title() {
 	if (is_404()) {
 		return "Not found";
@@ -29,10 +31,13 @@ function deadline_get_header_title() {
 	return "No content";
 }
 
+/* The rest of these print parts of the current post in the loop */
+
 function deadline_excerpt() {
 	?><span class="post-excerpt"><?php the_excerpt(); ?></span><?php
 }
 
+/* IMPORTANT: the class post-content is used in style.css to apply base styles to post content */
 function deadline_content() {
 	$read_more = sprintf('Continue reading "%s"', wp_kses_post(get_the_title()));
 	?><section class="post-content"><?php the_content($read_more); ?></section><?php
