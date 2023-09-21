@@ -39,6 +39,10 @@ dfn, cite, em, i {
 	font-style: italic;
 }
 
+strong, b {
+	font-weight: bold;
+}
+
 pre, code, kbd, var {
 	font-family: monospace;
 }
