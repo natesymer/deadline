@@ -3,20 +3,8 @@
 add_filter('after_setup_theme', function() {
 	add_theme_support('title-tag');
 	add_theme_support('post-thumbnails');
-	add_theme_support('responsive-embeds');
-	add_theme_support('html5', [
-		'search-form',
-		'style',
-		'script',
-		'meta'
-	]);
-
-	add_theme_support('custom-logo', [
-		'height'      => 250,
-		'width'       => 250,
-		'flex-width'  => true,
-		'flex-height' => true,
-	]);
+	add_theme_support('custom-logo', []);
+	add_theme_support('html5', ['search-form', 'style', 'script', 'meta']);
 
 	register_nav_menus([
 		'primary_navigation' => 'Primary Navigation'
