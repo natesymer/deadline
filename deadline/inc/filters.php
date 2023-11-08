@@ -28,6 +28,8 @@ add_filter('wp_enqueue_scripts', function() {
 	wp_enqueue_style('parent-theme-style', get_stylesheet_uri(), [], '0.0.1');
 });
 
+add_filter('get_the_archive_title_prefix', '__return_empty_string');
+
 add_filter('body_class', function($classes) {
 	$classes[] = is_active_sidebar('sidebar') ? 'has-sidebar' : 'no-sidebar';
 	return $classes;
