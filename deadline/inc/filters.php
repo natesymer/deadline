@@ -12,28 +12,11 @@ add_filter('after_setup_theme', function() {
 	]);
 });
 
-add_filter('widgets_init', function() {
-	register_sidebar([
-		'name'          => 'Sidebar',
-		'id'            => 'sidebar',
-		'description'   => 'Add widgets here.',
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	]);
-});
-
 add_filter('wp_enqueue_scripts', function() {
 	wp_enqueue_style('parent-theme-style', get_stylesheet_uri(), [], '0.0.1');
 });
 
 add_filter('get_the_archive_title_prefix', '__return_empty_string');
-
-add_filter('body_class', function($classes) {
-	$classes[] = is_active_sidebar('sidebar') ? 'has-sidebar' : 'no-sidebar';
-	return $classes;
-});
 
 add_filter('post_class', function($classes, $css_class, $post_id) {
 	$classes = array_diff($classes, ['hentry']);

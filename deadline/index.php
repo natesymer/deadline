@@ -71,11 +71,6 @@
 			}
 			?>
 			</section>
-			<?php if (is_active_sidebar('sidebar')) { ?>
-			<aside id="secondary" class="widget-area">
-				<?php dynamic_sidebar('sidebar'); ?>
-			</aside>
-			<?php } ?>
 		</main>
 		<footer id="colophon" class="site-footer">
 			<?php deadline_copyright(); ?>
